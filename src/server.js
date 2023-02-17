@@ -17,6 +17,10 @@ const app = express()
 app.use(express.static(__dirname))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+const http = require('http').Server(app)
+const io = require('socket.io')(http);
+
+io.on('connection', () => console.log('user conneted'))
 
 app.get('/messages', (request, response) => {
     messageSchema.find({}, (error, messages) => response.send(messages))
@@ -28,10 +32,11 @@ app.post('/messages', (request, response) => {
         if (error) {
             response.sendStatus(500)
         }
+        io.emit('message', request.body);
         response.sendStatus(200)
     })
 })
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log('server running')
 })
