@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 const http = require('http').Server(app)
 const io = require('socket.io')(http);
 
-io.on('connection', () => console.log('user conneted'))
+io.on('connection', () => console.log('user connected'))
 
 app.get('/messages', (request, response) => {
     messageSchema.find({}, (error, messages) => response.send(messages))

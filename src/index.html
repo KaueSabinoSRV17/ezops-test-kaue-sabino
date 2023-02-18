@@ -21,8 +21,8 @@
     <section id="messages">
     </section>
 
-    <div>
-        <legend>Send a Message</legend>
+    <div id="form">
+        <legend class="formTitle">Send a Message</legend>
         <input type="text" placeholder="Type your name" name="name" id="name" class="form-control">
         <textarea name="message" placeholder="Type a message" id="message" cols="30" rows="10"
             class="form-control"></textarea>
@@ -46,8 +46,10 @@
     })
     function addMessages(message) {
         $("#messages").append(`
+        <div class="message">
       <h4> ${message.name} </h4>
-      <p>  ${message.message} </p>`)
+      <p>  ${message.message} </p>
+      </div>`)
     }
     function getMessages() {
         $.get('https://kauesabinosrv17-super-barnacle-9xgj9p9q77jhxjpw-3000.preview.app.github.dev/messages', (data) => {

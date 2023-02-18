@@ -3,10 +3,10 @@
     padding: 0;
 }
 
-div {
+div#form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     width: 50%;
     margin-inline: auto;
     margin-top: 2rem;
@@ -17,4 +17,22 @@ div {
 
 button, input, textarea {
     border-radius: .5rem;
+}
+
+#messages {
+    width: 50%;
+    margin-inline: auto;
+}
+
+.message {
+    border: 1px solid black;
+    margin-top: 1rem;
+    padding-left: 16px;
+    padding-top: 16px;
+    padding-right: 16px;
+    border-radius: .5rem;
+}
+
+.formTitle {
+    margin-bottom: 0;
 }
