@@ -52,12 +52,12 @@
       </div>`)
     }
     function getMessages() {
-        $.get('https://kauesabinosrv17-super-barnacle-9xgj9p9q77jhxjpw-3000.preview.app.github.dev/messages', (data) => {
+        $.get('/messages', (data) => {
             data.forEach(addMessages);
         })
     }
     function sendMessage(message) {
-        $.post('https://kauesabinosrv17-super-barnacle-9xgj9p9q77jhxjpw-3000.preview.app.github.dev/messages', message)
+        $.post('/messages', message)
     }
 </script>
 
