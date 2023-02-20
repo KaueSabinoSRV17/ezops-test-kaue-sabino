@@ -30,8 +30,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Log on EC2 via SSH
-        run: echo ${{secrets.EC2_SSH_KEY}} >> key.pem && ssh -tt -i "key.pem" ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
+      - name: Set up Pem file
+        run: echo ${{secrets.EC2_SSH_KEY}} >> chat-app-ssh-key.pem 
+      - name: Connect on EC2 via SSH
+        run: ssh -tt -i "chat-app-ssh-key.pem" ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
       - name: Remove old Docker image
         run: docker rmi -f $(docker images -q)
       - name: Pull latest image
