@@ -34,6 +34,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.EC2_SSH_HOST }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           username: ${{ secrets.EC2_SSH_USER }}
           script: whoami
 
