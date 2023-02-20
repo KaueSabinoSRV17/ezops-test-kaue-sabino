@@ -31,7 +31,11 @@ jobs:
 
     steps:
       - name: Log on EC2 via SSH
+<<<<<<< HEAD
         run: echo ${{secrets.EC2_SSH_KEY}} >> key.pem && ssh -i key.pem ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
+=======
+        run: ssh -i ${{secrets.EC2_SSH_KEY}} ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
+>>>>>>> a302382b4aa3f102aef9b1f6754f93dfeea6b44c
       - name: Remove old Docker image
         run: docker rmi -f $(docker images -q)
       - name: Pull latest image
