@@ -30,13 +30,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Pem file
-        run: echo ${{secrets.EC2_SSH_KEY}} >> chat-app-ssh-key.pem 
-      - name: Connect on EC2 via SSH
-        run: ssh -tt -i "chat-app-ssh-key.pem" ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
-      - name: Remove old Docker image
-        run: docker rmi -f $(docker images -q)
-      - name: Pull latest image
-        run: docker pull ${{secrets.DOCKER_USER}}/chat-app:latest
-      - name: Run the App
-        run: docker run -p 8080:3000 ${{secrets.DOCKER_USER}}/chat-app:latest
+      - name: Connect via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_SSH_HOST }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          script: whoami
+
