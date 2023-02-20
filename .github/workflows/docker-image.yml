@@ -23,4 +23,4 @@ jobs:
       - name: Logs in to Docker Hub
         run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Publish to Docker Hub
-        run: docker push chat-app:latest && docker push chat-app:${{ github.run_number }}
+        run: docker push ${{secrets.DOCKER_USER}}/chat-app:latest && docker push ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
