@@ -24,3 +24,17 @@ jobs:
         run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Publish to Docker Hub
         run: docker push ${{secrets.DOCKER_USER}}/chat-app:latest && docker push ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log on EC2 via SSH
+        run: echo ${{secrets.EC2_SSH_KEY}} >> key.pem && ssh -i key.pem ubuntu@ec2-34-234-175-244.compute-1.amazonaws.com
+      - name: Remove old Docker image
+        run: docker rmi -f $(docker images -q)
+      - name: Pull latest image
+        run: docker pull ${{secrets.DOCKER_USER}}/chat-app:latest
+      - name: Run the App
+        run: docker run -p 8080:3000 ${{secrets.DOCKER_USER}}/chat-app:latest
