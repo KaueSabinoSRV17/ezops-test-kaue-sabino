@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v2 
       - name: Deploy in EC2
         env:
@@ -40,6 +41,15 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+=======
+      - name: Connect via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.EC2_SSH_HOST }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          script: whoami
+>>>>>>> 2e4207ace2b7dd130288ece16fab433ddf056e2b
 
             whoiam
           
