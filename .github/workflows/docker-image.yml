@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .env file
+        run: echo MONGO_USER=${{secrets.MONGO_USER}} >> .env && echo MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} >> .env
       - name: Build the latest Docker image
         run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:latest
       - name: Build the latest Docker image
