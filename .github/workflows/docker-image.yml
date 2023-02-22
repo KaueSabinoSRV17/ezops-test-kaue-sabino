@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up .env file
-        run: touch .env && echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env && echo MONGO_USER=${{ secrets.MONGO_USER }} >> .env
+        run: echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env && echo MONGO_USER=${{ secrets.MONGO_USER }} >> .env
       - name: Build the latest Docker image
         run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:latest
       - name: Build the latest Docker image
@@ -42,5 +42,5 @@ jobs:
             docker stop $(docker ps -q)
             docker rmi -f $(docker images -q)
             docker pull ${{secrets.DOCKER_USER}}/chat-app:latest
-            docker run -p 8080:3000 ${{secrets.DOCKER_USER}}/chat-app:latest
+            docker run -d -p 8080:3000 ${{secrets.DOCKER_USER}}/chat-app:latest
             echo $RSYNC_STDOUT
