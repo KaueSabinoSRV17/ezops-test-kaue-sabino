@@ -33,10 +33,10 @@ jobs:
       - name: Deploy to Staging server
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
           ARGS: "-rlgoDzvc -i"
-          REMOTE_HOST: ${{ secrets.EC2_SSH_HOST }}
-          REMOTE_USER: ${{ secrets.EC2_SSH_USER }}
+          REMOTE_HOST: ec2-34-239-1-43.compute-1.amazonaws.com
+          REMOTE_USER: ubuntu
           SCRIPT_BEFORE: |
             whoami
             ls -al
