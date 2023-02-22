@@ -30,14 +30,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
+      - name: Deploy to Staging server
+        uses: easingthemes/ssh-deploy@main
         env:
-            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
-            HOSTNAME : ${{ secrets.EC2_SSH_HOST  }}
-            USER_NAME : ${{ secrets.EC2_SSH_USER_  }}
-            
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@ec2-34-239-1-43.compute-1.amazonaws.com
-          
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          REMOTE_HOST: ${{ secrets.EC2_SSH_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_SSH_USER }}
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT          
