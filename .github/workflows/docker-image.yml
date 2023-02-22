@@ -14,12 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up .env file
-        run: echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env && echo MONGO_USER=${{ secrets.MONGO_USER }} >> .env
       - name: Build the latest Docker image
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:latest
+        run: docker build . --file Dockerfile --build-arg MONGO_USER=${{secrets.MONGO_USER}} --build-arg MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} --tag ${{secrets.DOCKER_USER}}/chat-app:latest
       - name: Build the latest Docker image
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
+        run: docker build . --file Dockerfile --build-arg MONGO_USER=${{secrets.MONGO_USER}} --build-arg MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} --tag ${{secrets.DOCKER_USER}}/chat-app:latest
       - name: Logs in to Docker Hub
         run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
       - name: Publish to Docker Hub
