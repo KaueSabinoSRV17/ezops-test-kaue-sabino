@@ -35,12 +35,12 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
           ARGS: "-rlgoDzvc -i"
-          REMOTE_HOST: ec2-34-239-1-43.compute-1.amazonaws.com
-          REMOTE_USER: ubuntu
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
+          REMOTE_HOST: ${{secrets.EC2_SSH_HOST}}
+          REMOTE_USER: ${{secrets.EC2_SSH_USER}}
           SCRIPT_AFTER: |
-            whoami
-            ls -al
+            sudo su -
+            docker stop $(docker ps -q)
+            docker rmi -f $(docker images -q)
+            docker pull ${{secrets.DOCKER_USER}}/chat-app:latest
+            docker run -p 8080:3000 ${{secrets.DOCKER_USER}}/chat-app:latest
             echo $RSYNC_STDOUT
