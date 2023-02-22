@@ -8,22 +8,22 @@ on:
 
 jobs:
 
-  # build:
+   build:
 
-  #   runs-on: ubuntu-latest
+     runs-on: ubuntu-latest
 
-    # steps:
-    #   - uses: actions/checkout@v3
-    #   - name: Set up .env file
-    #     run: touch .env && echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env && echo MONGO_USER=${{ secrets.MONGO_USER }} >> .env
-    #   - name: Build the latest Docker image
-    #     run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:latest
-    #   - name: Build the latest Docker image
-    #     run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
-    #   - name: Logs in to Docker Hub
-    #     run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
-    #   - name: Publish to Docker Hub
-    #     run: docker push ${{secrets.DOCKER_USER}}/chat-app:latest && docker push ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
+     steps:
+       - uses: actions/checkout@v3
+       - name: Set up .env file
+         run: touch .env && echo MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} >> .env && echo MONGO_USER=${{ secrets.MONGO_USER }} >> .env
+       - name: Build the latest Docker image
+         run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:latest
+       - name: Build the latest Docker image
+         run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
+       - name: Logs in to Docker Hub
+         run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+       - name: Publish to Docker Hub
+         run: docker push ${{secrets.DOCKER_USER}}/chat-app:latest && docker push ${{secrets.DOCKER_USER}}/chat-app:${{ github.run_number }}
 
   deploy:
     needs: build
