@@ -38,28 +38,51 @@
     socket.on('message', addMessages)
     $(() => {
         $("#send").click(() => {
-            console.log($('#name').val(), $('#message').val())
             sendMessage({
                 name: $("#name").val(),
                 message: $("#message").val()
             });
-        })
-        getMessages()
+        });
+
+        $(".delete").click(() => {
+            deleteMessage($(".delete").attr('data-messageId'))
+        });
+
+        addMessages();
     })
     function addMessages(message) {
-        $("#messages").append(`
-        <div class="message">
-      <h4> ${message.name} </h4>
-      <p>  ${message.message} </p>
-      </div>`)
+        $("#messages").html('')
+        getMessages().then(messages => {
+            const uniqueMessages = new Set(messages)
+            uniqueMessages.forEach(message => {
+                if (message.name !== undefined && message.name !== "undefined") {
+                    $("#messages").append(`
+                <div class="message" id="${message._id}">
+                    <h4> ${message.name} </h4>
+                    <div>
+                        <p>  ${message.message} </p>
+                        <button class="delete btn btn-error" onclick="deleteMessage('${message._id}')">Delete</button>
+                    </div>
+                </div>`)
+                }
+            })
+        })
     }
     function getMessages() {
-        $.get('/messages', (data) => {
-            data.forEach(addMessages);
-        })
+        return fetch('/messages')
+            .then(data => data.json())
     }
     function sendMessage(message) {
         $.post('/messages', message)
+    }
+    function deleteMessage(id) {
+        fetch('/messages/' + id, { method: 'DELETE' })
+            .then(result => {
+                if (result) {
+                    $(`#${id}`)
+                        .hide()
+                }
+            })
     }
 </script>
 

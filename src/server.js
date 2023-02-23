@@ -37,6 +37,16 @@ app.post('/messages', (request, response) => {
     })
 })
 
+app.delete('/messages/:messageId', (request, response) => {
+    const { messageId } = request.params
+    messageSchema.deleteOne({_id: messageId}, error => {
+        if (error) {
+            response.sendStatus(500)
+        }
+        response.sendStatus(200)
+    })
+})
+
 http.listen(3000, () => {
     console.log('server running')
 })

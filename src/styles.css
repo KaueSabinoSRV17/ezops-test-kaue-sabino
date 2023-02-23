@@ -33,6 +33,19 @@ button, input, textarea {
     border-radius: .5rem;
 }
 
+.message div {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message button {
+    background-color: red;
+    color: white;
+    padding: .5rem;
+}
+
 .formTitle {
     margin-bottom: 0;
 }
