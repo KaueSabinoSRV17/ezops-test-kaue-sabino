@@ -11,7 +11,7 @@ div#form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 50%;
+    width: min(750px, 90vw);
     margin-inline: auto;
     margin-top: 2rem;
     padding: 1rem;
@@ -24,7 +24,7 @@ button, input, textarea {
 }
 
 #messages {
-    width: 50%;
+    width: min(750px, 90vw);
     margin-inline: auto;
 }
 
