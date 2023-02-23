@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+h1 {
+    text-align: center;
+}
+
 div#form {
     display: flex;
     flex-direction: column;
