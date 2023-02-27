@@ -38,11 +38,11 @@
     socket.on('message', addMessages)
     $(() => {
         $("#send").click(() => {
-            $("#message").val("")
             sendMessage({
                 name: $("#name").val(),
                 message: $("#message").val()
             });
+            $("#message").val("")
         });
 
         $(".delete").click(() => {
